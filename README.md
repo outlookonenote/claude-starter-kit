@@ -1,5 +1,7 @@
 # Claude Code starter kit (magyar)
 
+[English version](README.en.md)
+
 Egy Claude Code plugin, ami pár perc alatt felépít egy magyar nyelvű munkakörnyezetet: egy **fő-agentet**, aki koordinál és delegál, egy kis **csapatot agentekből**, amit a saját munkádra bővíthetsz, egy **szabályrendszert** (SOP), ami munka közben tanul, és egy **onboardingot**, amivel a rendszer megtudja, ki vagy.
 
 Nem egy konkrét szakmára készült: a magja bármilyen munkakörre használható, a saját munkádra a beépített kollégafelvétellel szabod.
@@ -65,6 +67,8 @@ Indítsd el a `claude`-ot bármelyik mappában, és add ki:
 ```
 
 Utána lépj ki (`/exit`) és indítsd újra a `claude`-ot, hogy a plugin betöltődjön.
+
+Ugyanebben a marketplace-ben van az angol kiadás is (`starter-kit-en`). Csak az egyiket telepítsd: mindkettő munkaterületet állít be és session eleji emlékeztetőt ad.
 
 ## 3. Beállítás és onboarding
 

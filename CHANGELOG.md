@@ -1,6 +1,10 @@
 # Változások
 
-A verziószám a `plugins/starter-kit/.claude-plugin/plugin.json` fájlban van; minden kiadásnál emelni kell, különben a telepített példányok nem frissülnek.
+A verziószám a `plugins/<plugin>/.claude-plugin/plugin.json` fájlban van (`starter-kit`: magyar, `starter-kit-en`: angol); minden kiadásnál emelni kell, különben a telepített példányok nem frissülnek.
+
+## starter-kit-en 0.1.0
+
+Angol nyelvű kiadás külön pluginként (`starter-kit-en`), ugyanabban a marketplace-ben. Tartalma megegyezik a magyar 0.1.0-val; a parancsok `/starter-kit-en:` előtaggal, a munkaterület angol mappa- és fájlnevekkel (`Team/`, `About Me/about-me.md`, angol SOP-fájlnevek), a fő-agent alapértelmezett neve Max. Leírás: [README.en.md](README.en.md).
 
 ## 0.1.0
 

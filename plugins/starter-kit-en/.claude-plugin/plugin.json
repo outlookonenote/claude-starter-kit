@@ -1,0 +1,10 @@
+{
+  "name": "starter-kit-en",
+  "version": "0.1.0",
+  "description": "English Claude Code starter kit: workspace template, onboarding, a growing agent team and a self-learning rule system.",
+  "author": {
+    "name": "Gáspár András"
+  },
+  "license": "MIT",
+  "keywords": ["english", "starter-kit", "onboarding", "agents", "workspace"]
+}

@@ -4,13 +4,19 @@
     "name": "Gáspár András"
   },
   "metadata": {
-    "description": "Magyar nyelvű Claude Code starter kit: fő-agent, bővülő agent-csapat, öntanuló szabályrendszer."
+    "description": "Claude Code starter kit (Hungarian and English): main agent, growing agent team, self-learning rule set."
   },
   "plugins": [
     {
       "name": "starter-kit",
       "source": "./plugins/starter-kit",
       "description": "Munkaterület-sablon, onboarding, kolléga-felvétel (Rita és Anna), session-napló (Bea) és állapotriport (Ádám), magyarul.",
+      "category": "productivity"
+    },
+    {
+      "name": "starter-kit-en",
+      "source": "./plugins/starter-kit-en",
+      "description": "English edition: workspace template, onboarding, hiring new teammates (Rita and Anna), session log (Bea) and status reports (Adam).",
       "category": "productivity"
     }
   ]

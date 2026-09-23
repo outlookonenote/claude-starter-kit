@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(date:*)",
+      "Bash(ln -sf:*)",
+      "Bash(git init:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
