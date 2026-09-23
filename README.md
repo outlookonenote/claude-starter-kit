@@ -91,6 +91,8 @@ cd ~/Documents/Munkaterulet
 claude
 ```
 
+Az első indításkor a Claude Code megkérdezi, megbízol-e ebben a mappában. Fogadd el: amíg ez nem történik meg, a munkaterület `.claude/settings.json` fájljában előre engedélyezett rutinparancsok sem érvényesek, és minden lépésnél jóváhagyást kér.
+
 - Munka elején: `/starter-kit:start-session` — hol tartunk, mi a nyitott, mi a következő lépés.
 - Munka végén: `/starter-kit:end-session` — felajánlja a szabályrögzítést (öntanulás), és Bea naplóz.
 - Új kolléga: `/starter-kit:new-agent <igény egy mondatban>`, vagy egyszerűen: „Rita, kéne valami, ami…”
@@ -113,7 +115,8 @@ Utána indítsd újra a `claude`-ot. A telepített verziót a `/plugin` menüben
 - **A fő-agent nem követi a szabályokat.** Valószínűleg nem a munkaterület mappájából indítottad a `claude`-ot. Lépj ki, `cd` a munkaterületre, és indítsd újra.
 - **Egy saját kolléga nem jelenik meg.** Nézd meg a symlinket: `ls -la ~/.claude/agents/`. A kolléga fájljára kell mutatnia a munkaterület `Csapat/…` mappájában. Új kolléga csak újraindítás után látszik.
 - **Áthelyezted a munkaterületet.** Futtasd újra a `/starter-kit:setup`-ot az új hellyel (a meglévő fájlokat nem írja felül), és hozd létre újra a saját kollégák symlinkjeit (a `Csapat/README.md` leírja, hogyan).
-- **Jóváhagyást kér minden lépésnél.** Ez normális, nyugodtan engedélyezd. A munkaterület `.claude/settings.json` fájlja néhány rutinparancsot eleve engedélyez.
+- **Jóváhagyást kér minden lépésnél, még a rutinparancsoknál is.** A munkaterület `.claude/settings.json` fájlja néhány rutinparancsot előre engedélyez, de csak akkor, ha a mappát megbízhatónak fogadtad el. Indítsd a `claude`-ot a munkaterületből, és az első indításkor megjelenő kérdésre válaszolj igennel. Ettől függetlenül egy-egy jóváhagyás-kérés normális, nyugodtan engedélyezd.
+- **Más nevet adtál a fő-agentnek egy újrafuttatásnál, de a régi maradt.** A setup meglévő fájlt nem ír felül. Kérd meg a fő-agentet, hogy cserélje le a nevet a munkaterület `CLAUDE.md` fájljában és a `SOPs/` alatt.
 
 ## Eltávolítás
 
