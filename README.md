@@ -60,7 +60,7 @@ Windowson és Linuxon a Claude Code hivatalos telepítési oldala szerint telep�
 Indítsd el a `claude`-ot bármelyik mappában, és add ki:
 
 ```
-/plugin marketplace add OWNER/claude-starter-kit
+/plugin marketplace add outlookonenote/claude-starter-kit
 /plugin install starter-kit@claude-starter-kit
 ```
 

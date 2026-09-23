@@ -1,7 +1,7 @@
 {
   "name": "claude-starter-kit",
   "owner": {
-    "name": "A szerzők"
+    "name": "Gáspár András"
   },
   "metadata": {
     "description": "Magyar nyelvű Claude Code starter kit: fő-agent, bővülő agent-csapat, öntanuló szabályrendszer."
