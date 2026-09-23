@@ -1,0 +1,17 @@
+{
+  "name": "claude-starter-kit",
+  "owner": {
+    "name": "A szerzők"
+  },
+  "metadata": {
+    "description": "Magyar nyelvű Claude Code starter kit: fő-agent, bővülő agent-csapat, öntanuló szabályrendszer."
+  },
+  "plugins": [
+    {
+      "name": "starter-kit",
+      "source": "./plugins/starter-kit",
+      "description": "Munkaterület-sablon, onboarding, kolléga-felvétel (Rita és Anna), session-napló (Bea) és állapotriport (Ádám), magyarul.",
+      "category": "productivity"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "starter-kit",
+  "version": "0.1.0",
+  "description": "Magyar nyelvű Claude Code starter kit: munkaterület-sablon, onboarding, bővülő agent-csapat és öntanuló szabályrendszer.",
+  "author": {
+    "name": "A szerzők"
+  },
+  "license": "MIT",
+  "keywords": ["magyar", "starter-kit", "onboarding", "agents", "workspace"]
+}
