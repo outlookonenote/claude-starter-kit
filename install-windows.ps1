@@ -23,13 +23,14 @@ param([switch]$English)
 # sibling windows/installer.ps1 is used instead of downloading.
 #
 # RELEASE: the installer is downloaded from the git tag in $ReleaseRef below,
-# not from the moving main branch. Every release must bump this constant (and
-# create the tag) together with the plugin versions; see CHANGELOG.md.
+# not from the moving main branch. Every release must bump this constant AND
+# RELEASE_REF in install-mac.sh (and create the tag) together with the plugin
+# versions; see CHANGELOG.md.
 #
 # STARTER_KIT_REF (environment variable) overrides the ref for testing a
 # branch; a yellow warning is printed when it is set.
 
-$ReleaseRef = 'v0.2.0'
+$ReleaseRef = 'v0.2.1'
 
 & {
     param([bool]$UseEnglish, [string]$ReleaseRef)

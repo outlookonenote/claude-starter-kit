@@ -29,9 +29,9 @@ Ha van benne `workspace=<út>` sor, és az a mappa létezik (`ls -d "<út>"`), a
 
 ## 2. Hely és név
 
-Ha az argumentumok tartalmazzák (pl. `hely: ~/Documents/Munkaterulet, név: Máté`), használd azokat, és ne kérdezz rá újra. Ami hiányzik, azt egy üzenetben kérdezd meg:
+Ha az argumentumok tartalmazzák (pl. `hely: ~/Munkaterulet, név: Máté`), használd azokat, és ne kérdezz rá újra. Ami hiányzik, azt egy üzenetben kérdezd meg:
 
-- **A munkaterület helye.** Alapértelmezés: `~/Documents/Munkaterulet`, Windowson `~/Munkaterulet` (a Windows a Dokumentumok mappát gyakran a OneDrive-ba szinkronizálja, ami zavarhatja a munkát). Ez egy mappa, ahol a jegyzeteid, szabályaid, saját kollégáid élnek. Windowson a `C:\Users\...` alakú út is jó.
+- **A munkaterület helye.** Alapértelmezés: `~/Munkaterulet`, macOS-en és Windowson egyaránt. Szándékosan nem a Dokumentumok alatt: azt macOS-en gyakran az iCloud, Windowson a OneDrive szinkronizálja, ami a munkaterület git-repóját tönkreteheti. Ez egy mappa, ahol a jegyzeteid, szabályaid, saját kollégáid élnek. Windowson a `C:\Users\...` alakú út is jó.
 - **A fő-agent neve** (aki koordinál és delegál). Alapértelmezés: `Máté`.
 
 Ha a felhasználó csak annyit mond, hogy „jó az alapértelmezés", használd a fenti értékeket.

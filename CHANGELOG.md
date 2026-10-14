@@ -2,6 +2,17 @@
 
 A verziószám a `plugins/<plugin>/.claude-plugin/plugin.json` fájlban van (`starter-kit`: magyar, `starter-kit-en`: angol); minden kiadásnál emelni kell, különben a telepített példányok nem frissülnek.
 
+**Kiadási teendők (mindig mind):** a két `plugin.json` verziója; a kiadási tag a két indítóban (`install-windows.ps1`: `$ReleaseRef`, `install-mac.sh`: `RELEASE_REF`, mindkettőben ugyanaz); a tag létrehozása és feltöltése (`git tag vX.Y.Z && git push origin vX.Y.Z`). Az indítók a telepítő magját erről a tagről töltik le, így tag nélkül a telepítő parancs hibát ad.
+
+## 0.2.1 (starter-kit és starter-kit-en)
+
+Telepítés egy paranccsal Macen, és új alapértelmezett munkaterület-hely.
+
+- **Telepítés egy paranccsal macOS-en:** `curl -fsSL https://raw.githubusercontent.com/outlookonenote/claude-starter-kit/main/install-mac.sh | bash` (angol kiadás: `… | bash -s -- --english`). A Windows-telepítő párja, ugyanazzal a szerkezettel: a rövid indító (`install-mac.sh`) a telepítő magját (`mac/installer.sh`) a `RELEASE_REF` konstansban megadott tagről tölti le, a marketplace-t tag nélkül veszi fel, a `STARTER_KIT_REF` és `STARTER_KIT_SOURCE` tesztváltozók ugyanúgy működnek. Ellenőrzi a macOS-t (13 vagy újabb); ha hiányzik az Xcode Command Line Tools, elindítja a telepítését, és kéri, hogy utána futtasd újra a parancsot (a git ehhez kell: a GitHubos marketplace-t a Claude Code a git segítségével klónozza, és a `git init` is ezt használja); szükség esetén telepíti a Claude Code-ot a hivatalos telepítővel, és a `~/.local/bin` mappát felveszi a PATH-ra a `~/.zshrc` fájlban (a hivatalos telepítő ezt csak javasolja); felveszi a marketplace-t, telepíti a plugint, létrehozza a munkaterületet, és felajánlja a `git init`-et. A kérdéseket a terminálon teszi fel (`/dev/tty`), terminál nélkül az alapértelmezéseket használja. Újrafuttatható; a macOS-hez kapott bash 3.2-vel fut.
+- **Új alapértelmezett munkaterület-hely:** `~/Munkaterulet` (angolul `~/Workspace`) macOS-en is, a `~/Documents/…` helyett. Ha az iCloud az Asztal és a Dokumentumok mappát szinkronizálja, az a munkaterület git-repóját tönkreteheti. A `/starter-kit:setup` (angolul `/starter-kit-en:setup`) alapértelmezése és a README ennek megfelelően változott. Meglévő munkaterületet nem érint: a setup a configban tárolt helyet használja. Ha a tiéd a `~/Documents` alatt van és ott az iCloud szinkronizál, érdemes áthelyezni (a mappát átmozgatod, majd az új hellyel újrafuttatod a setupot).
+- **Kiadási rögzítés:** a két indító ugyanarra a tagre mutat (most `v0.2.1`); lásd fent a kiadási teendőket.
+- README: a telepítés két párhuzamos blokkal indul (Windowson, Macen), a kézi lépések a „Kézi telepítés” részbe kerültek.
+
 ## 0.2.0 (starter-kit és starter-kit-en)
 
 Windows-támogatás és új helye a saját kollégáknak.

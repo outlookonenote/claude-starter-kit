@@ -29,9 +29,9 @@ If it has a `workspace=<path>` line and that folder exists (`ls -d "<path>"`), a
 
 ## 2. Location and name
 
-If the arguments contain them (e.g. `location: ~/Documents/Workspace, name: Max`), use those and do not ask again. Ask for whatever is missing in one message:
+If the arguments contain them (e.g. `location: ~/Workspace, name: Max`), use those and do not ask again. Ask for whatever is missing in one message:
 
-- **The workspace location.** Default: `~/Documents/Workspace`, on Windows `~/Workspace` (Windows often syncs the Documents folder to OneDrive, which can get in the way). This is a folder where your notes, rules and your own teammates live. On Windows a `C:\Users\...` path works too.
+- **The workspace location.** Default: `~/Workspace`, on macOS and Windows alike. Deliberately not under Documents: macOS often syncs that folder to iCloud and Windows to OneDrive, which can break the workspace's git repository. This is a folder where your notes, rules and your own teammates live. On Windows a `C:\Users\...` path works too.
 - **The main agent's name** (the one who coordinates and delegates). Default: `Max`.
 
 If the user just says "the defaults are fine", use the values above.

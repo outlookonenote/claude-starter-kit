@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # starter-kit-en workspace installer (called by the /starter-kit-en:setup skill
-# and by install-windows.ps1 -English).
+# and by the one-line installers with their English option).
 #
 # Usage: setup-workspace.sh <plugin-data-dir> <workspace-path> [main-agent-name]
 #

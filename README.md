@@ -27,7 +27,11 @@ A plugin a „motor”, a munkaterület a tiéd: a plugin frissítése soha nem 
 
 Fizetős Claude-előfizetés (Pro, Max, Team vagy Enterprise) vagy Anthropic API-kulcs. Ingyenes fiókkal a Claude Code nem használható.
 
-## Windowson: telepítés egy paranccsal
+## Telepítés egy paranccsal
+
+Windowson és Macen is egyetlen sor bemásolásával települ minden, ami kell. Válaszd a géped rendszerét; a kézi út lent, a [Kézi telepítés](#kézi-telepítés) részben van.
+
+### Windowson
 
 Nyisd meg a **Windows PowerShell** alkalmazást (Start menü, „PowerShell”; rendszergazdaként nem kell elindítani), másold be ezt a sort, és nyomj Entert:
 
@@ -45,22 +49,42 @@ A telepítő sorban:
 4. felveszi a marketplace-t, és telepíti a `starter-kit` plugint;
 5. létrehozza a munkaterületet a `~\Munkaterulet` mappában (csak a fő-agent nevét kérdezi meg, alapértelmezés: Máté), és felajánlja a `git init`-et.
 
-Nyugodtan újrafuttatható: ami már kész, azt kihagyja, meglévő fájlt nem ír felül, a plugint pedig frissíti. A végén kiírja a teendőket:
+### Macen
 
-```powershell
-cd ~\Munkaterulet
+Nyisd meg a **Terminál** alkalmazást (Cmd+Szóköz, írd be: „Terminál”), másold be ezt a sort, és nyomj Entert:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/outlookonenote/claude-starter-kit/main/install-mac.sh | bash
+```
+
+A telepítő sorban:
+
+1. ellenőrzi a macOS-t (13-as, Ventura vagy újabb kiadás);
+2. ha hiányzik, elindítja az **Xcode Command Line Tools** telepítését (ebben van a git, ami a plugin letöltéséhez és a verziókövetéshez kell). Ilyenkor megnyílik egy rendszerablak: kattints a Telepítés (Install) gombra, várd meg, amíg végez, majd futtasd újra ugyanazt a parancsot;
+3. ha hiányzik, telepíti a **Claude Code**-ot a hivatalos telepítővel (rendszergazdai jelszó nem kell), és a `~/.local/bin` mappát felveszi a PATH-ra a `~/.zshrc` fájlban (a hivatalos telepítő ezt csak javasolja);
+4. felveszi a marketplace-t, és telepíti a `starter-kit` plugint;
+5. létrehozza a munkaterületet a `~/Munkaterulet` mappában (csak a fő-agent nevét kérdezi meg, alapértelmezés: Máté), és felajánlja a `git init`-et. Szándékosan nem a Dokumentumok alatt: ha az iCloud az Asztal és a Dokumentumok mappát szinkronizálja, az a munkaterület git-repóját tönkreteheti.
+
+### Utána, mindkét rendszeren
+
+A telepítő nyugodtan újrafuttatható: ami már kész, azt kihagyja, meglévő fájlt nem ír felül, a plugint pedig frissíti. Bejelentkezni a telepítéshez nem kell, csak az első indításkor. A végén kiírja a teendőket:
+
+```bash
+cd ~/Munkaterulet
 claude
 ```
 
-Az első indításkor a böngészőben jelentkezz be a Claude-fiókoddal, a „megbízol ebben a mappában?” kérdésre válaszolj igennel (Yes), majd írd be: `/starter-kit:onboard`. Innen a [Napi használat](#napi-használat) rész ugyanúgy érvényes, mint macOS-en.
+(Windowson `cd ~\Munkaterulet`.) Ha a telepítő azt írja, hogy nyiss új ablakot (Macen a Claude Code friss telepítése után), előbb tedd meg. Az első indításkor a böngészőben jelentkezz be a Claude-fiókoddal, a „megbízol ebben a mappában?” kérdésre válaszolj igennel (Yes), majd írd be: `/starter-kit:onboard`. Innen a [Napi használat](#napi-használat) rész érvényes.
 
-A parancs egy szkriptet tölt le és futtat. Ha óvatos vagy, előbb nézd át a repóban: [install-windows.ps1](install-windows.ps1) (rövid indító) és [windows/installer.ps1](windows/installer.ps1) (maga a telepítő).
+A parancs egy szkriptet tölt le és futtat. Ha óvatos vagy, előbb nézd át a repóban: Windowson [install-windows.ps1](install-windows.ps1) (rövid indító) és [windows/installer.ps1](windows/installer.ps1) (maga a telepítő), Macen [install-mac.sh](install-mac.sh) és [mac/installer.sh](mac/installer.sh).
 
-**Kézi telepítés Windowson:** telepítsd a Git for Windowst (https://git-scm.com/downloads/win), majd PowerShellben a Claude Code-ot: `irm https://claude.ai/install.ps1 | iex` (vagy `winget install Anthropic.ClaudeCode`, ez viszont nem frissül magától). Utána a [2. ponttól](#2-a-plugin-telepítése) minden ugyanaz; munkaterületnek a `~\Munkaterulet` ajánlott, mert a Dokumentumok mappát a Windows gyakran a OneDrive-ba szinkronizálja.
+## Kézi telepítés
 
-## 1. Claude Code telepítése (macOS)
+Ha nem a telepítő paranccsal dolgozol (vagy Linuxon vagy), ez a három lépés ugyanoda vezet.
 
-Válassz **egy** módot:
+### 1. Claude Code telepítése
+
+**macOS**, válassz **egy** módot:
 
 ```bash
 # A) Homebrew (ha van brew a gépen)
@@ -73,7 +97,11 @@ curl -fsSL https://claude.ai/install.sh | bash
 npm install -g @anthropic-ai/claude-code
 ```
 
-A `curl … | bash` egy szkriptet tölt le és futtat. Ha óvatos vagy, előbb nyisd meg böngészőben a `https://claude.ai/install.sh` címet, és nézd át.
+A `curl … | bash` egy szkriptet tölt le és futtat. Ha óvatos vagy, előbb nyisd meg böngészőben a `https://claude.ai/install.sh` címet, és nézd át. A natív telepítő a `~/.local/bin` mappába tesz; ha utána a `claude` parancsot nem találja, futtasd: `echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc`, és nyiss új Terminál-ablakot.
+
+**Windows:** telepítsd a Git for Windowst (https://git-scm.com/downloads/win), majd PowerShellben a Claude Code-ot: `irm https://claude.ai/install.ps1 | iex` (vagy `winget install Anthropic.ClaudeCode`, ez viszont nem frissül magától).
+
+**Linux:** a Claude Code hivatalos telepítési oldala szerint telepíts; a plugin használata onnantól ugyanaz.
 
 Ellenőrzés új terminálablakban:
 
@@ -86,9 +114,7 @@ Ha a `claude` parancsot nem találja, zárd be és nyisd újra a terminált.
 
 **Bejelentkezés:** indítsd el a `claude`-ot; megnyílik a böngésző, lépj be a Claude-fiókoddal. Ha a böngésző nem nyílik meg, a terminál kiír egy linket. Kilépés: `/exit`.
 
-Windowson lásd fent. Linuxon a Claude Code hivatalos telepítési oldala szerint telepíts; a plugin használata onnantól ugyanaz.
-
-## 2. A plugin telepítése
+### 2. A plugin telepítése
 
 Indítsd el a `claude`-ot bármelyik mappában, és add ki:
 
@@ -101,13 +127,13 @@ Utána lépj ki (`/exit`) és indítsd újra a `claude`-ot, hogy a plugin betöl
 
 Ugyanebben a marketplace-ben van az angol kiadás is (`starter-kit-en`). Csak az egyiket telepítsd: mindkettő munkaterületet állít be és session eleji emlékeztetőt ad.
 
-## 3. Beállítás és onboarding
+### 3. Beállítás és onboarding
 
 ```
 /starter-kit:setup
 ```
 
-Megkérdezi, hova kerüljön a munkaterület (alapértelmezés: `~/Documents/Munkaterulet`) és mi legyen a fő-agent neve (alapértelmezés: Máté). A sablont felülírás nélkül másolja be, így később is nyugodtan újrafuttatható. Felajánlja a `git init`-et is; vadonatúj Macen ilyenkor feljöhet az Xcode Command Line Tools telepítőablaka, ezt meg kell várni.
+Megkérdezi, hova kerüljön a munkaterület (alapértelmezés: `~/Munkaterulet`, szándékosan nem a Dokumentumok alatt, amit az iCloud vagy a OneDrive gyakran szinkronizál) és mi legyen a fő-agent neve (alapértelmezés: Máté). A sablont felülírás nélkül másolja be, így később is nyugodtan újrafuttatható. Felajánlja a `git init`-et is; vadonatúj Macen ilyenkor feljöhet az Xcode Command Line Tools telepítőablaka, ezt meg kell várni.
 
 A végén rögtön jöhet az onboarding:
 
@@ -122,7 +148,7 @@ Pár kérdéskörben megismer (ki vagy, mivel foglalkozol, milyen eszközökkel,
 **A `claude`-ot a munkaterület mappájából indítsd**, mert a fő-agent szabályai (`CLAUDE.md`) csak ott töltődnek be:
 
 ```bash
-cd ~/Documents/Munkaterulet
+cd ~/Munkaterulet
 claude
 ```
 
@@ -141,7 +167,7 @@ A saját kollégák a munkaterület `.claude/agents/<Department>/` mappájában 
 /plugin marketplace update claude-starter-kit
 ```
 
-Utána indítsd újra a `claude`-ot. A telepített verziót a `/plugin` menüben látod; a változások a [CHANGELOG.md](CHANGELOG.md)-ben vannak. A frissítés csak a plugint cseréli: a munkaterületed (profil, SOP-ok, jegyzetek, saját kollégák) érintetlen marad. Az új sablonfájlokat a `/starter-kit:setup` újrafuttatása pótolja, a meglévőket nem írja felül. Windowson a telepítő parancs újrafuttatása is frissít.
+Utána indítsd újra a `claude`-ot. A telepített verziót a `/plugin` menüben látod; a változások a [CHANGELOG.md](CHANGELOG.md)-ben vannak. A frissítés csak a plugint cseréli: a munkaterületed (profil, SOP-ok, jegyzetek, saját kollégák) érintetlen marad. Az új sablonfájlokat a `/starter-kit:setup` újrafuttatása pótolja, a meglévőket nem írja felül. A telepítő parancs újrafuttatása (Windowson és Macen is) szintén frissít.
 
 **0.1.x-ről 0.2.0-ra:** a saját kollégák helye megváltozott (symlink helyett a munkaterület `.claude/agents/` mappája). Frissítés után futtasd a `/starter-kit:setup`-ot: ha régi elhelyezésű kollégát talál, megmutatja, mit helyezne át, és csak a jóváhagyásod után teszi meg. Részletek: [CHANGELOG.md](CHANGELOG.md).
 
@@ -155,7 +181,9 @@ Utána indítsd újra a `claude`-ot. A telepített verziót a `/plugin` menüben
 - **Jóváhagyást kér minden lépésnél, még a rutinparancsoknál is.** A munkaterület `.claude/settings.json` fájlja néhány rutinparancsot előre engedélyez, de csak akkor, ha a mappát megbízhatónak fogadtad el. Indítsd a `claude`-ot a munkaterületből, és az első indításkor megjelenő kérdésre válaszolj igennel. Ettől függetlenül egy-egy jóváhagyás-kérés normális, nyugodtan engedélyezd.
 - **Windows: a `claude` parancsot nem találja a PowerShell.** Nyiss új PowerShell ablakot (a telepítés után a PATH csak az új ablakokban frissül). A program helye: `%USERPROFILE%\.local\bin\claude.exe`.
 - **Windows: a Claude Code Git Basht hiányol, vagy a session eleji emlékeztető nem jelenik meg.** Telepítsd a Git for Windowst (https://git-scm.com/downloads/win), vagy futtasd újra a telepítő parancsot. Ha a Git nem a szokásos helyre került, add meg a Git Bash útját a `%USERPROFILE%\.claude\settings.json` fájlban: `"env": { "CLAUDE_CODE_GIT_BASH_PATH": "C:\\Program Files\\Git\\bin\\bash.exe" }`.
-- **Windows: a telepítő egy lépésnél hibát írt.** Minden hibaüzenet megmondja a következő lépést. A telepítő biztonságosan újrafuttatható, a kész lépéseket kihagyja.
+- **A telepítő egy lépésnél hibát írt (Windows vagy Mac).** Minden hibaüzenet megmondja a következő lépést. A telepítő biztonságosan újrafuttatható, a kész lépéseket kihagyja.
+- **Mac: a `claude` parancsot nem találja a Terminál.** Nyiss új Terminál-ablakot: a telepítő a `~/.zshrc` fájlban vette fel a `~/.local/bin` mappát a PATH-ra, ez csak az új ablakokban érvényes. A program helye: `~/.local/bin/claude`.
+- **Mac: a telepítő a Command Line Tools telepítésénél megállt.** Ez szándékos: a megnyílt rendszerablakban fejezd be a telepítést, majd futtasd újra ugyanazt a parancsot. Ha az ablak nem jelent meg, írd be: `xcode-select --install`.
 - **Más nevet adtál a fő-agentnek egy újrafuttatásnál, de a régi maradt.** A setup meglévő fájlt nem ír felül. Kérd meg a fő-agentet, hogy cserélje le a nevet a munkaterület `CLAUDE.md` fájljában és a `SOPs/` alatt.
 
 ## Eltávolítás

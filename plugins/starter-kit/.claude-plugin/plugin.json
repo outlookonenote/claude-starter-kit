@@ -1,6 +1,6 @@
 {
   "name": "starter-kit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Magyar nyelvű Claude Code starter kit: munkaterület-sablon, onboarding, bővülő agent-csapat és öntanuló szabályrendszer.",
   "author": {
     "name": "Gáspár András"
