@@ -21,7 +21,7 @@ Minden SOP:
 | # | Cím | Miről szól |
 |---|---|---|
 | SOP-00 | Öntanulás | Hogyan lesz egy felismerésből rögzített szabály — a rendszer így tanul |
-| SOP-01 | Agent-fájl konvenciók | Frontmatter, szekciórend, elhelyezés, symlink, least-privilege |
+| SOP-01 | Agent-fájl konvenciók | Frontmatter, szekciórend, elhelyezés, least-privilege |
 | SOP-02 | Delegálj, ne magad dolgozz | A fő-agent koordinál, nem állít elő maga deliverable-t |
 | SOP-03 | Session-ritmus | Kezdés (kontextus-betöltés) és zárás (napló + öntanulás) |
 | SOP-04 | Írás- és deliverable-szabályok | Univerzális minőségi alapelvek a kimenetekhez |

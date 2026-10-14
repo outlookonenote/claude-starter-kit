@@ -34,16 +34,10 @@ The `description` is the most important field: the main agent uses it to decide 
 There are two kinds of agents, and each has one canonical location:
 
 - **Built-in (plugin) teammates** — Rita (`talent-researcher`), Anna (`agent-architect`), Bea (`scribe`), Adam (`status`). They live in the starter-kit-en plugin, are called with a namespace (`starter-kit-en:<name>`), and update when the plugin updates. We don't edit them, and we don't put our own files in the plugin folder (it is overwritten on update).
-- **Your own teammates** — live in the workspace, made visible to Claude Code by a symlink:
-  - **Canonical file:** `<workspace>/Team/<Department>/<name>.md`
-  - **Symlink (flat):** `~/.claude/agents/<name>.md` → the canonical file
+- **Your own teammates** — live in the workspace's `.claude/agents/` folder:
+  - **Agent file:** `<workspace>/.claude/agents/<Department>/<name>.md`
 
-```bash
-ln -sf "<workspace>/Team/<Department>/<name>.md" \
-       "$HOME/.claude/agents/<name>.md"
-```
-
-`<workspace>` is always replaced by the absolute path (given in the session-start context: `Workspace: <path>`). Departments: whatever the work needs (e.g. `Development`, `Marketing`, `Clients`). Your own agent's technical name must not match a built-in one. We do **not** put agents in project-specific folders (`<project>/.claude/agents/`) — everything stays in one place so the structure remains portable (reachable from any session).
+Claude Code loads this folder (subfolders included) when `claude` is started from the workspace. We do not use symlinks and do not write under `~/.claude/agents/`. `<workspace>` is always replaced by the absolute path (given in the session-start context: `Workspace: <path>`). Departments: whatever the work needs (e.g. `Development`, `Marketing`, `Clients`). Your own agent's technical name must not match a built-in one, and must not repeat across departments. We do **not** put agents in other projects' folders (`<project>/.claude/agents/`): your own team lives in one place, the workspace.
 
 ### Choosing a model
 
@@ -57,13 +51,13 @@ Every agent gets only the tools its job **actually** needs. A read-only agent ge
 
 ## Why
 
-A uniform structure lets the main agent know reliably which agent to call when, what it does and what it doesn't. The canonical file + symlink setup ensures that Claude Code sees the current definition in every session, and that your own team can be moved to another machine by copying one folder (the plugin brings the built-in ones).
+A uniform structure lets the main agent know reliably which agent to call when, what it does and what it doesn't. Because your own teammates live inside the workspace, Claude Code sees the current definition in every workspace session, without symlinks or copies (on Windows too), and your own team moves to another machine together with the workspace folder (the plugin brings the built-in ones).
 
 ## How to apply
 
 - **New agent (Anna):** follow the section order, don't skip Prohibitions. Make the "when" clear in the `description`.
-- **Refining (own agent):** edit the canonical file in the department folder — thanks to the symlink, it takes effect from the next session start.
-- **Removing (own agent):** delete the `.md` **and** the symlink under `~/.claude/agents/`.
+- **Refining (own agent):** edit the file in the `.claude/agents/<Department>/` folder; it takes effect from the next session start.
+- **Removing (own agent):** delete the `.md` from the `.claude/agents/<Department>/` folder.
 - **Updating the index:** after every hire/removal, update the tables in `Team/README.md` and `Team/team-index.md`.
 
 ## Prohibitions

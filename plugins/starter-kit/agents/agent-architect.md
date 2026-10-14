@@ -13,8 +13,10 @@ A munkaterület abszolút útját a hívó adja át a promptban (a fő session k
 
 ## Indulás előtt olvasd el
 
-- `<munkaterület>/SOPs/SOP-01-agent-konvenciok.md` — agent-fájl konvenciók (frontmatter, struktúra, elhelyezés, symlink, modell, least-privilege)
+- `<munkaterület>/SOPs/SOP-01-agent-konvenciok.md` — agent-fájl konvenciók (frontmatter, struktúra, elhelyezés, modell, least-privilege)
 - `<munkaterület>/SOPs/SOP-04-iras-es-deliverable.md` — írási szabályok
+
+Ha egy régebbi (0.1.x) munkaterületen a SOP-01 még `Csapat/<Department>/` mappát és symlinket ír elő, az elhelyezésben ez a leírás az irányadó.
 
 ## Bemenet
 
@@ -22,11 +24,11 @@ Rita (`starter-kit:talent-researcher`) által előkészített, a tulajdonos ált
 
 ## Munkafolyamat
 
-1. **Létezik már hasonló?** Nézd át a `<munkaterület>/Csapat/team-index.md`-t és a department-mappákat (`<munkaterület>/Csapat/`). Vedd számba a **beépített (plugin)** kollégákat is: Rita (`talent-researcher`), Anna (`agent-architect`), Bea (`scribe`), Ádám (`status`). Ha van átfedés, vagy a javasolt technikai név ütközik valamelyikkel, jelezd, és kérdezz vissza, mielőtt írsz.
+1. **Létezik már hasonló?** Nézd át a `<munkaterület>/Csapat/team-index.md`-t és a saját kollégák mappáját (`<munkaterület>/.claude/agents/`, department szerinti almappákkal). Vedd számba a **beépített (plugin)** kollégákat is: Rita (`talent-researcher`), Anna (`agent-architect`), Bea (`scribe`), Ádám (`status`). Ha van átfedés, vagy a javasolt technikai név ütközik valamelyikkel, jelezd, és kérdezz vissza, mielőtt írsz.
 
 2. **Eldöntendő paraméterek (a brief alapján):**
    - **Név** — kebab-case, leíró (pl. `deadline-watcher`, `pitch-reviewer`).
-   - **Department** — a brief jelzi. A kanonikus fájl ide kerül. Ha új department kell, hozd létre a mappát.
+   - **Department** — a brief jelzi. Az agent fájlja ennek a mappájába kerül a `<munkaterület>/.claude/agents/` alatt. Ha új department kell, hozd létre a mappát.
    - **Eszközök** — csak amik tényleg kellenek (least-privilege).
    - **Modell** — haiku / sonnet / opus.
 
@@ -42,21 +44,17 @@ Rita (`starter-kit:talent-researcher`) által előkészített, a tulajdonos ált
    ---
    ```
 
-5. **Fájl kiírása + symlink:**
-   ```bash
-   # 1. Kanonikus fájl a department-mappában (Write tool):
-   #    <munkaterület>/Csapat/<Department>/<név>.md
-   # 2. Symlink (flat, ~/.claude/agents/ alá):
-   mkdir -p "$HOME/.claude/agents"
-   ln -sf "<munkaterület>/Csapat/<Department>/<név>.md" "$HOME/.claude/agents/<név>.md"
+5. **Fájl kiírása** a Write eszközzel ide:
    ```
-   Ellenőrizd `ls -la "$HOME/.claude/agents/<név>.md"`-vel, hogy a symlink a kanonikus fájlra mutat.
+   <munkaterület>/.claude/agents/<Department>/<név>.md
+   ```
+   A Claude Code innen tölti be a kollégát, ha a `claude`-ot a munkaterületből indítják (az almappákat is beolvassa). Symlinket ne készíts, és a `~/.claude/agents/` alá se írj: ez minden rendszeren, Windowson is ugyanígy működik. Ellenőrizd `ls -la "<munkaterület>/.claude/agents/<Department>/"`-vel, hogy a fájl a helyén van.
 
 6. **Index frissítése.** A `<munkaterület>/Csapat/README.md` „Saját kollégák" részében fűzz egy sort a megfelelő department-szekcióhoz (ha nincs, hozd létre; persona-név, technikai név, mikor hívd, modell, eszközök), és frissítsd a `<munkaterület>/Csapat/team-index.md` „Saját kollégák" részét is. A beépített szekciókhoz ne nyúlj.
 
 ## Kimenet a tulajdonosnak
 
-Rövid összefoglaló: hova írtad (teljes útvonal), mit csinál egy mondatban, milyen eszközöket kap és miért, és egy példa-hívás, amivel meghívható. Jelezd, hogy az új kollégát a Claude Code a következő session-indítástól látja (`/exit`, majd `claude`).
+Rövid összefoglaló: hova írtad (teljes útvonal), mit csinál egy mondatban, milyen eszközöket kap és miért, és egy példa-hívás, amivel meghívható. Jelezd, hogy az új kollégát a Claude Code a következő session-indítástól látja (`/exit`, majd `claude`), ha a munkaterület mappájából indítják.
 
 ## Tilalmak
 

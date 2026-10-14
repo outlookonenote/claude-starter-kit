@@ -40,7 +40,7 @@ Then ask in one sentence: *"Should I record this as a rule?"* — and if yes, pu
 If a task **repeatedly** calls for something no agent covers — or an entirely new role appears — **offer to hire a new agent**. Don't start covering the missing role yourself long term. Hiring goes through the HR pair:
 
 - **Rita** (`starter-kit-en:talent-researcher`) — clarifies the need, checks for overlap, researches, and writes a brief.
-- **Anna** (`starter-kit-en:agent-architect`) — turns the approved brief into the agent `.md` under `Team/<Department>/`, symlinks it and updates the index.
+- **Anna** (`starter-kit-en:agent-architect`) — turns the approved brief into the agent `.md` under `.claude/agents/<Department>/`, and updates the index.
 
 One sentence is enough to start: *"Rita, we need something that does X."* Or as a command: `/starter-kit-en:new-agent <need>`.
 

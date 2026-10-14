@@ -4,10 +4,13 @@
 # Writes a short Hungarian context note for the model as SessionStart JSON:
 #   (a) no configured workspace   -> suggest /starter-kit:setup
 #   (b) workspace, profile empty  -> "Munkaterület: <path>" + suggest /starter-kit:onboard
-#   (c) workspace ready           -> "Munkaterület: <path>" (+ pointer to CLAUDE.md if cwd differs)
+#   (c) workspace ready           -> "Munkaterület: <path>" (+ pointer to CLAUDE.md if cwd is outside it)
 #
 # Constraints: plain bash (macOS ships bash 3.2), no python/jq dependency,
 # never exits non-zero. On any unexpected problem it prints nothing.
+# On Windows the hook runs in Git Bash: CLAUDE_PLUGIN_DATA / CLAUDE_PROJECT_DIR
+# may be "C:\..." paths and the config holds "C:/..."; all are converted with
+# cygpath before use, and the cwd comparison ignores case there.
 
 # JSON string escaping without jq/python: backslash, double quote, tab, and
 # newlines (lines are joined with a literal \n by awk).
@@ -24,8 +27,46 @@ strip_ctrl() {
   printf '%s' "$1" | LC_ALL=C tr -d '\000-\010\013-\037'
 }
 
+is_windows_shell() {
+  case $(uname -s 2>/dev/null) in
+    MINGW*|MSYS*|CYGWIN*) return 0 ;;
+  esac
+  return 1
+}
+
+# "C:\x" / "C:/x" -> "/c/x" on Windows shells; unchanged elsewhere.
+to_posix_path() {
+  local p=$1
+  if is_windows_shell; then
+    case $p in
+      [A-Za-z]:|[A-Za-z]:\\*|[A-Za-z]:/*)
+        if command -v cygpath >/dev/null 2>&1; then
+          p=$(cygpath -u "$p")
+        fi
+        ;;
+    esac
+    p=${p//\\//}
+  fi
+  printf '%s' "$p"
+}
+
 resolve_dir() {
-  (cd "$1" 2>/dev/null && pwd -P)
+  [ -n "$1" ] || return 0
+  (cd "$(to_posix_path "$1")" 2>/dev/null && pwd -P)
+}
+
+# True if directory $1 is $2 or lies below it. Paths on Windows are
+# case-insensitive, so they are compared lowercased there.
+inside_dir() {
+  local a=$1 b=$2
+  if is_windows_shell; then
+    a=$(printf '%s' "$a" | tr '[:upper:]' '[:lower:]')
+    b=$(printf '%s' "$b" | tr '[:upper:]' '[:lower:]')
+  fi
+  case "$a/" in
+    "$b/"*) return 0 ;;
+  esac
+  return 1
 }
 
 main() {
@@ -33,15 +74,17 @@ main() {
   local config="" workspace="" msg=""
 
   if [ -n "$data_dir" ]; then
-    config="$data_dir/config"
+    config="$(to_posix_path "$data_dir")/config"
   fi
 
   if [ -n "$config" ] && [ -f "$config" ]; then
     workspace=$(sed -n 's/^workspace=//p' "$config" 2>/dev/null | head -n 1)
     workspace=$(strip_ctrl "$workspace")
   fi
+  local ws_posix=""
+  [ -n "$workspace" ] && ws_posix=$(to_posix_path "$workspace")
 
-  if [ -z "$workspace" ] || [ ! -d "$workspace" ]; then
+  if [ -z "$workspace" ] || [ ! -d "$ws_posix" ]; then
     # State (a)
     msg="A starter-kit plugin telepítve van, de még nincs beállított munkaterület."
     if [ -n "$workspace" ]; then
@@ -50,7 +93,7 @@ main() {
     msg="$msg Az első érdemi válaszodban egy rövid mondatban ajánld fel a /starter-kit:setup futtatását, ami létrehozza a munkaterületet."
   else
     msg="Munkaterület: $workspace"
-    local profile="$workspace/About Me/rolam.md"
+    local profile="$ws_posix/About Me/rolam.md"
     if [ ! -f "$profile" ] || grep -q 'Utolsó frissítés: —' "$profile" 2>/dev/null; then
       # State (b)
       msg="$msg"$'\n'"A tulajdonos profilja (About Me/rolam.md) még nincs kitöltve. Az első érdemi válaszodban egy rövid mondatban ajánld fel a /starter-kit:onboard futtatását."
@@ -58,8 +101,8 @@ main() {
     local here ws_real
     here=$(resolve_dir "${CLAUDE_PROJECT_DIR:-$PWD}")
     ws_real=$(resolve_dir "$workspace")
-    if [ -n "$ws_real" ] && [ "$here" != "$ws_real" ]; then
-      msg="$msg"$'\n'"A session nem a munkaterületből indult: a fő-agent szabályai a $workspace/CLAUDE.md fájlban vannak."
+    if [ -n "$ws_real" ] && ! inside_dir "$here" "$ws_real"; then
+      msg="$msg"$'\n'"A session nem a munkaterületből indult: a fő-agent szabályai a $workspace/CLAUDE.md fájlban vannak, és a saját kollégák (a $workspace/.claude/agents/ alatt) is csak a munkaterületből indított sessionben érhetők el."
     fi
   fi
 

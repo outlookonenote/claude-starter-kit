@@ -21,6 +21,6 @@ _Még nincs. Anna ide fűzi az új kollégákat department szerint, egy-egy sorb
 1. A tulajdonos egy mondatban jelzi az igényt **Ritának** (vagy `/starter-kit:new-agent <igény>`).
 2. Rita tisztáz, átfedést vizsgál (ez a fájl: beépítettek és sajátok), kutat, brief-et ír.
 3. A tulajdonos jóváhagyja, majd a fő-agent átadja **Annának**: „Anna, itt a brief, írd meg."
-4. Anna kiírja az `.md`-t a `Csapat/<Department>/` alá, symlinkeli `~/.claude/agents/` alá, frissíti a `README.md`-t és ezt az indexet.
+4. Anna kiírja az `.md`-t a `.claude/agents/<Department>/` alá, és frissíti a `README.md`-t és ezt az indexet.
 
 Részletek: `SOPs/SOP-01-agent-konvenciok.md`.

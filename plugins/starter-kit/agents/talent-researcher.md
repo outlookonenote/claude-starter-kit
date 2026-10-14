@@ -34,7 +34,7 @@ A WebSearch és WebFetch engedélyezett eszközeid, de subagent-szálban deferre
    - Hogyan illik a meglévő workflow-ba? (mikor hívnák, ki hívná)
    - Read-only agent elég, vagy módosíthat is fájlokat?
 
-2. **Nézd meg a `team-index.md`-t** (`<munkaterület>/Csapat/team-index.md`). Két csoportot vizsgálj: a **beépített (plugin)** kollégákat (Rita, Anna, Bea, Ádám — ezek a starter-kit pluginban élnek, nem módosíthatók, de a hatókörükkel ne ütközzön az új agent) és a tulajdonos **saját** kollégáit (`<munkaterület>/Csapat/<Department>/`). Van-e átfedés? Ha igen, jelezd, és kérdezd meg, elég-e egy meglévő saját agent bővítése.
+2. **Nézd meg a `team-index.md`-t** (`<munkaterület>/Csapat/team-index.md`). Két csoportot vizsgálj: a **beépített (plugin)** kollégákat (Rita, Anna, Bea, Ádám — ezek a starter-kit pluginban élnek, nem módosíthatók, de a hatókörükkel ne ütközzön az új agent) és a tulajdonos **saját** kollégáit (`<munkaterület>/.claude/agents/<Department>/`). Van-e átfedés? Ha igen, jelezd, és kérdezd meg, elég-e egy meglévő saját agent bővítése.
 
 3. **Kutass** (ha kell): hasonló agent-setupok mit csinálnak ezen a területen, milyen eszközök szokványosak, milyen modell-méret indokolt.
 
@@ -45,7 +45,7 @@ A WebSearch és WebFetch engedélyezett eszközeid, de subagent-szálban deferre
    - **Javasolt persona-név** — a csapat stílusához illő keresztnév, ami még nem foglalt.
    - **Javasolt eszközök** — miért ezek, miért nem mások (least-privilege).
    - **Javasolt modell** — haiku / sonnet / opus, indoklással.
-   - **Department** — melyik mappába illik a `Csapat/` alatt (pl. `Fejlesztés`, `Marketing`, `Ügyfél`; a beépítettek department-jei: `HR`, `Üzemeltetés`).
+   - **Department** — melyik csoportba illik (ez lesz a mappa neve a `.claude/agents/` alatt; pl. `Fejlesztés`, `Marketing`, `Ügyfél`; a beépítettek department-jei: `HR`, `Üzemeltetés`).
    - **Csapatban elfoglalt hely** — ki hívja, mikor, milyen workflow-ban.
 
 5. **Add át a brief-et.** Zárd ezzel: „Ha jónak találod, kérd meg Annát (`starter-kit:agent-architect`), hogy írja meg."

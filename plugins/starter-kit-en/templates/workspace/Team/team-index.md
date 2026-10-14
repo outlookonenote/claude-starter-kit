@@ -21,6 +21,6 @@ _None yet. Anna appends new teammates here by department, one line each: **Name*
 1. The owner states the need to **Rita** in one sentence (or `/starter-kit-en:new-agent <need>`).
 2. Rita clarifies, checks for overlap (this file: built-in and own), researches, writes a brief.
 3. The owner approves, then the main agent hands it to **Anna**: "Anna, here's the brief, write it."
-4. Anna writes the `.md` under `Team/<Department>/`, symlinks it under `~/.claude/agents/`, and updates `README.md` and this index.
+4. Anna writes the `.md` under `.claude/agents/<Department>/`, and updates `README.md` and this index.
 
 Details: `SOPs/SOP-01-agent-conventions.md`.

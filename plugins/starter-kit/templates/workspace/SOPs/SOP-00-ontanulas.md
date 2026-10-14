@@ -28,7 +28,7 @@ Ha igen, döntsd el, **hova** kerüljön:
 | Általános munkaszabály, ami több feladatra érvényes | **Új SOP** a `SOPs/` mappában (`SOP-NN-rövid-név.md`) |
 | Ki a tulajdonos, mivel foglalkozik, állandó preferencia | **`About Me/rolam.md`** frissítése |
 | Egy konkrét projekt/ügyfél állapota, teendője | A projekt jegyzete a `Notes/`-ban vagy a `Tasks/`-ban |
-| Egy saját agent viselkedésének finomítása | Az adott agent `.md`-je a `Csapat/<Department>/` alatt (beépített kollégánál, ami a pluginban él: új SOP vagy a `CLAUDE.md`, mert a plugin fájljai frissítéskor felülíródnak) |
+| Egy saját agent viselkedésének finomítása | Az adott agent `.md`-je a `.claude/agents/<Department>/` alatt (beépített kollégánál, ami a pluginban él: új SOP vagy a `CLAUDE.md`, mert a plugin fájljai frissítéskor felülíródnak) |
 
 ### Új SOP létrehozása
 

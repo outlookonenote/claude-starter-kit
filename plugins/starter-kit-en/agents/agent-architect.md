@@ -13,8 +13,10 @@ The caller passes the absolute workspace path in the prompt (in the main session
 
 ## Read before you start
 
-- `<workspace>/SOPs/SOP-01-agent-conventions.md` — agent file conventions (frontmatter, structure, placement, symlink, model, least privilege)
+- `<workspace>/SOPs/SOP-01-agent-conventions.md` — agent file conventions (frontmatter, structure, placement, model, least privilege)
 - `<workspace>/SOPs/SOP-04-writing-and-deliverables.md` — writing rules
+
+If SOP-01 in an older (0.1.x) workspace still prescribes a `Team/<Department>/` folder and a symlink, this description takes precedence for placement.
 
 ## Input
 
@@ -22,11 +24,11 @@ A brief prepared by Rita (`starter-kit-en:talent-researcher`) and approved by th
 
 ## Workflow
 
-1. **Does something similar already exist?** Check `<workspace>/Team/team-index.md` and the department folders (`<workspace>/Team/`). Also account for the **built-in (plugin)** teammates: Rita (`talent-researcher`), Anna (`agent-architect`), Bea (`scribe`), Adam (`status`). If there is overlap, or the proposed technical name collides with one of them, say so and ask before you write anything.
+1. **Does something similar already exist?** Check `<workspace>/Team/team-index.md` and your own teammates' folder (`<workspace>/.claude/agents/`, with department subfolders). Also account for the **built-in (plugin)** teammates: Rita (`talent-researcher`), Anna (`agent-architect`), Bea (`scribe`), Adam (`status`). If there is overlap, or the proposed technical name collides with one of them, say so and ask before you write anything.
 
 2. **Parameters to decide (based on the brief):**
    - **Name** — kebab-case, descriptive (e.g. `deadline-watcher`, `pitch-reviewer`).
-   - **Department** — given in the brief. The canonical file goes here. If a new department is needed, create the folder.
+   - **Department** — given in the brief. The agent file goes into this folder under `<workspace>/.claude/agents/`. If a new department is needed, create the folder.
    - **Tools** — only what is really needed (least privilege).
    - **Model** — haiku / sonnet / opus.
 
@@ -42,21 +44,17 @@ A brief prepared by Rita (`starter-kit-en:talent-researcher`) and approved by th
    ---
    ```
 
-5. **Write the file + symlink:**
-   ```bash
-   # 1. Canonical file in the department folder (Write tool):
-   #    <workspace>/Team/<Department>/<name>.md
-   # 2. Symlink (flat, under ~/.claude/agents/):
-   mkdir -p "$HOME/.claude/agents"
-   ln -sf "<workspace>/Team/<Department>/<name>.md" "$HOME/.claude/agents/<name>.md"
+5. **Write the file** with the Write tool here:
    ```
-   Check with `ls -la "$HOME/.claude/agents/<name>.md"` that the symlink points to the canonical file.
+   <workspace>/.claude/agents/<Department>/<name>.md
+   ```
+   Claude Code loads the teammate from here when `claude` is started from the workspace (it reads subfolders too). Do not create a symlink and do not write under `~/.claude/agents/`: this works the same on every system, Windows included. Check with `ls -la "<workspace>/.claude/agents/<Department>/"` that the file is in place.
 
 6. **Update the index.** In the "Your own teammates" part of `<workspace>/Team/README.md`, add a line under the matching department section (create the section if missing; persona name, technical name, when to call, model, tools), and also update the "Your own teammates" part of `<workspace>/Team/team-index.md`. Do not touch the built-in sections.
 
 ## Output to the owner
 
-A short summary: where you wrote it (full path), what it does in one sentence, which tools it gets and why, and an example call to invoke it. Mention that Claude Code sees the new teammate from the next session start (`/exit`, then `claude`).
+A short summary: where you wrote it (full path), what it does in one sentence, which tools it gets and why, and an example call to invoke it. Mention that Claude Code sees the new teammate from the next session start (`/exit`, then `claude`), when started from the workspace folder.
 
 ## Prohibitions
 

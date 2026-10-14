@@ -5,7 +5,6 @@
       "Bash(ls:*)",
       "Bash(cat:*)",
       "Bash(date:*)",
-      "Bash(ln -sf:*)",
       "Bash(git init:*)",
       "Bash(git status:*)",
       "Bash(git log:*)",

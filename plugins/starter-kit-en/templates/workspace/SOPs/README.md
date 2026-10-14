@@ -21,7 +21,7 @@ Every SOP:
 | # | Title | What it covers |
 |---|---|---|
 | SOP-00 | Self-learning | How an insight becomes a recorded rule — this is how the system learns |
-| SOP-01 | Agent file conventions | Frontmatter, section order, location, symlink, least privilege |
+| SOP-01 | Agent file conventions | Frontmatter, section order, location, least privilege |
 | SOP-02 | Delegate, don't do it yourself | The main agent coordinates, it doesn't produce deliverables itself |
 | SOP-03 | Session rhythm | Start (loading context) and close (log + self-learning) |
 | SOP-04 | Writing and deliverable rules | Universal quality principles for outputs |

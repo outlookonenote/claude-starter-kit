@@ -1,6 +1,6 @@
 ---
 name: new-agent
-description: Add a new teammate (agent) of your own to the team. Runs the whole hiring flow - Rita (starter-kit-en:talent-researcher) clarifies and writes a brief, the owner approves it, Anna (starter-kit-en:agent-architect) writes the agent into the workspace, symlinks it and updates the team index. Use it when the user wants an agent for a new, recurring task ("we need something that...").
+description: Add a new teammate (agent) of your own to the team. Runs the whole hiring flow - Rita (starter-kit-en:talent-researcher) clarifies and writes a brief, the owner approves it, Anna (starter-kit-en:agent-architect) writes the agent into the workspace's .claude/agents/ folder and updates the team index. Use it when the user wants an agent for a new, recurring task ("we need something that...").
 argument-hint: "<the need in one sentence>"
 ---
 
@@ -18,8 +18,8 @@ If the need is empty, ask in one sentence: "What would the new teammate do? For 
 
 2. **Approval.** Show Rita's brief to the user and ask if it is good as is. If they want changes, take it back to Rita. Do not go further without approval.
 
-3. **Anna.** Pass the approved brief to the `starter-kit-en:agent-architect` agent, together with the absolute workspace path. Anna writes the agent `.md` under `<path>/Team/<Department>/`, symlinks it under `~/.claude/agents/`, and updates `Team/README.md` and `team-index.md`.
+3. **Anna.** Pass the approved brief to the `starter-kit-en:agent-architect` agent, together with the absolute workspace path. Anna writes the agent `.md` under `<path>/.claude/agents/<Department>/`, and updates `Team/README.md` and `team-index.md`.
 
-4. **Wrap-up.** Tell the user where the new teammate went, what it does in one sentence, and how to call it (with an example sentence). Mention that Claude Code sees it from the next session start (`/exit`, then `claude`).
+4. **Wrap-up.** Tell the user where the new teammate went, what it does in one sentence, and how to call it (with an example sentence). Mention that Claude Code sees it from the next session start (`/exit`, then `claude`), and only when `claude` is started from the workspace.
 
 This is how the system grows: every new role goes down this path. The main agent also offers it on its own when it notices there is no suitable teammate for a recurring task.

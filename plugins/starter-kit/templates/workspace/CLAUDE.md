@@ -40,7 +40,7 @@ Ilyenkor egy mondatban kérdezz rá: *„Ezt rögzítsem szabályként?"* — é
 Ha egy feladat **visszatérően** olyat kíván, amire nincs agent — vagy egy teljesen új munkakör jelenik meg —, **ajánld fel új agent felvételét**. Ne kezdd el magad ellátni a hiányzó szerepet hosszú távon. A felvétel a HR-páron megy:
 
 - **Rita** (`starter-kit:talent-researcher`) — tisztázza az igényt, megnézi, van-e átfedés, kutat, és brief-et ír.
-- **Anna** (`starter-kit:agent-architect`) — a jóváhagyott brief-ből megírja az agent `.md`-t a `Csapat/<Department>/` alá, symlinkeli, frissíti az indexet.
+- **Anna** (`starter-kit:agent-architect`) — a jóváhagyott brief-ből megírja az agent `.md`-t a `.claude/agents/<Department>/` alá, és frissíti az indexet.
 
 Egy mondat elég az indításhoz: *„Rita, kéne valami, ami X-et csinál."* Vagy parancsként: `/starter-kit:new-agent <igény>`.
 

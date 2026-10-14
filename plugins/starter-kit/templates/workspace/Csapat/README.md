@@ -1,6 +1,6 @@
 # Csapat — az agentek irodája
 
-*A fő-agent (Máté) az orchestrator: koordinál és delegál, nem maga dolgozik. A kollégák két helyről jönnek: a **beépítettek** a starter-kit pluginban élnek (a plugin frissítésével frissülnek), a **saját kollégáid** ebben a mappában, department-szerinti almappákban. A saját kollégákat symlinkek teszik láthatóvá a Claude Code számára `~/.claude/agents/` alatt (flat).*
+*A fő-agent (Máté) az orchestrator: koordinál és delegál, nem maga dolgozik. A kollégák két helyről jönnek: a **beépítettek** a starter-kit pluginban élnek (a plugin frissítésével frissülnek), a **saját kollégáid** a munkaterület `.claude/agents/` mappájában, department szerinti almappákban. Ez a mappa (`Csapat/`) a névjegyzék: ki kicsoda, kit mikor hívj.*
 
 Rövid index és felvételi folyamat: [team-index.md](team-index.md).
 
@@ -32,24 +32,19 @@ Ezek a starter-kit plugin részei, névtérrel hívhatók (`starter-kit:<név>`)
 
 ## Karbantartás
 
-- **Új agent felvétele:** mondd el **Ritának** egy mondatban az igényt (vagy `/starter-kit:new-agent <igény>`). Rita tisztáz, kutat, brief-et ír (department-javaslattal). **Anna** a jóváhagyott brief alapján kiír egy új `.md`-t a megfelelő department-mappába ide, a `Csapat/` alá, symlinkeli `~/.claude/agents/` alá, és frissíti ezt a README-t és a `team-index.md`-t.
-- **Saját agent finomítása:** editáld a `.md`-t a department-mappában. A symlink miatt a Claude Code a legközelebbi session-induláskor látja a változást.
-- **Saját agent eltávolítása:** töröld az `.md`-t a department-mappából **és** a symlinket `~/.claude/agents/` alól.
-- **Department-átsorolás:** `mv` a fájlt a célmappába, majd `ln -sf` a frissített célútra a symlinken.
+- **Új agent felvétele:** mondd el **Ritának** egy mondatban az igényt (vagy `/starter-kit:new-agent <igény>`). Rita tisztáz, kutat, brief-et ír (department-javaslattal). **Anna** a jóváhagyott brief alapján kiír egy új `.md`-t a `.claude/agents/<Department>/` mappába, és frissíti ezt a README-t és a `team-index.md`-t.
+- **Saját agent finomítása:** szerkeszd a `.md`-t a `.claude/agents/<Department>/` mappában. A Claude Code a következő session-induláskor látja a változást.
+- **Saját agent eltávolítása:** töröld az `.md`-t a `.claude/agents/<Department>/` mappából, és vedd ki a sorát ebből a README-ből és a `team-index.md`-ből.
+- **Department-átsorolás:** helyezd át a fájlt egy másik almappába a `.claude/agents/` alatt.
 - **Beépített agent:** nem szerkeszthető itt. Ha másképp működne, vegyél fel saját kollégát a kívánt viselkedéssel, más technikai névvel.
 
 ## Felépítés-elv
 
-**Minden saját agent egy helyen — projekt-specifikus mappákba NEM tesszük** (mobilis könyvtárstruktúra: bármely session-ből elérhető legyen).
+**Minden saját agent egy helyen, a munkaterületen belül:**
 
-- **Kanonikus fájl:** `<munkaterület>/Csapat/<Department>/<név>.md`
-- **Symlink (flat):** `~/.claude/agents/<név>.md` → a kanonikus fájl
+- **Agent-fájl:** `<munkaterület>/.claude/agents/<Department>/<név>.md`
 
-Új symlink kézzel:
-```bash
-ln -sf "<munkaterület>/Csapat/<Department>/<név>.md" \
-       "$HOME/.claude/agents/<név>.md"
-```
+A Claude Code a munkaterület `.claude/agents/` mappáját (az almappákkal együtt) akkor tölti be, ha a `claude`-ot a munkaterületből vagy annak egy almappájából indítod. Nincs symlink és nincs másolat, így minden rendszeren (macOS, Windows, Linux) ugyanúgy működik, és a munkaterület mappájával együtt költözik. A `.claude` mappa rejtett lehet: macOS Finderben a Cmd+Shift+. mutatja meg.
 
 ## Konvenciók a system promptokban
 

@@ -13,6 +13,7 @@ Fix utak ebben a telepítésben (a parancsokban szó szerint ezeket használd, n
 - Plugin mappa: `${CLAUDE_PLUGIN_ROOT}`
 - Plugin adatmappa (itt él a config): `${CLAUDE_PLUGIN_DATA}`
 - Telepítő szkript: `${CLAUDE_PLUGIN_ROOT}/scripts/setup-workspace.sh`
+- Áthelyező szkript (régi saját kollégákhoz): `${CLAUDE_PLUGIN_ROOT}/scripts/migrate-agents.sh`
 
 A felhasználó által megadott argumentumok (lehet üres): `$ARGUMENTS`
 
@@ -30,14 +31,14 @@ Ha van benne `workspace=<út>` sor, és az a mappa létezik (`ls -d "<út>"`), a
 
 Ha az argumentumok tartalmazzák (pl. `hely: ~/Documents/Munkaterulet, név: Máté`), használd azokat, és ne kérdezz rá újra. Ami hiányzik, azt egy üzenetben kérdezd meg:
 
-- **A munkaterület helye.** Alapértelmezés: `~/Documents/Munkaterulet`. Ez egy mappa, ahol a jegyzeteid, szabályaid, saját kollégáid élnek.
+- **A munkaterület helye.** Alapértelmezés: `~/Documents/Munkaterulet`, Windowson `~/Munkaterulet` (a Windows a Dokumentumok mappát gyakran a OneDrive-ba szinkronizálja, ami zavarhatja a munkát). Ez egy mappa, ahol a jegyzeteid, szabályaid, saját kollégáid élnek. Windowson a `C:\Users\...` alakú út is jó.
 - **A fő-agent neve** (aki koordinál és delegál). Alapértelmezés: `Máté`.
 
 Ha a felhasználó csak annyit mond, hogy „jó az alapértelmezés", használd a fenti értékeket.
 
 ## 3. Telepítés
 
-Futtasd a szkriptet (az utat idézőjelek között add át, lehet benne szóköz vagy ékezet; a `~` is megengedett):
+Futtasd a szkriptet (az utat idézőjelek között add át, lehet benne szóköz vagy ékezet; a `~` is megengedett, Windowson a `C:\...` alak is):
 
 ```bash
 bash "${CLAUDE_PLUGIN_ROOT}/scripts/setup-workspace.sh" "${CLAUDE_PLUGIN_DATA}" "<hely>" "<név>"
@@ -52,11 +53,27 @@ Ne másolj kézzel, és ne írj a felhasználó globális beállításaiba (`~/.
 
 Ellenőrzésként listázd a munkaterületet rejtett fájlokkal együtt (`ls -la "<abszolút út>"`), és foglald össze a szkript kimenete alapján: hány új fájl jött létre, mi maradt érintetlen.
 
-## 4. Git (felajánlás)
+## 4. Régi elhelyezésű saját kollégák (csak 0.1.x-ről frissítésnél)
+
+Ha a szkript kimenetében szerepel a „Régi elhelyezésű saját kollégák" sor, a 0.1.x verzió még a `Csapat/<Department>/` alá írta a saját kollégákat, és a `~/.claude/agents/` alól symlink mutatott rájuk. A 0.2.0-tól a helyük a munkaterület `.claude/agents/<Department>/` mappája. Először csak nézd meg a tervet (ez semmit nem változtat):
+
+```bash
+bash "${CLAUDE_PLUGIN_ROOT}/scripts/migrate-agents.sh" "<abszolút út>"
+```
+
+Mutasd meg a felhasználónak a tervet, és **kérdezd meg, áthelyezheted-e**. Csak igenlő válasz után futtasd `--apply` kapcsolóval:
+
+```bash
+bash "${CLAUDE_PLUGIN_ROOT}/scripts/migrate-agents.sh" "<abszolút út>" --apply
+```
+
+A szkript a fájlokat áthelyezi (nem törli), a `~/.claude/agents/` alól pedig csak azt a bejegyzést veszi ki, ami symlink az adott fájlra, vagy vele azonos tartalmú másolat. A nem agent-fájlokat (például egy `README.md`-t) a helyükön hagyja. Ami eltér, azt érintetlenül hagyja és jelzi; ezeket mutasd meg a felhasználónak, és ne törölj semmit kérés nélkül. Ha a felhasználó nem kéri az áthelyezést, a régi kollégák a symlinkeken át továbbra is működnek.
+
+## 5. Git (felajánlás)
 
 Ha a szkript szerint a munkaterület még nem git-repó, ajánld fel a `git init`-et (a verziókövetés jól jön a jegyzeteknek és szabályoknak). Csak igenlő válasz után futtasd, és **ne commitolj**. Jelezd: vadonatúj Macen a legelső `git` parancs elindíthatja az Xcode Command Line Tools telepítését egy rendszerablakban; ez normális, meg kell várni, amíg végez. Ha az argumentumok alapján nem interaktív a futás (nincs kinek válaszolnia), a git-et csak ajánld, ne futtasd.
 
-## 5. Zárás
+## 6. Zárás
 
 Mondd el röviden:
 

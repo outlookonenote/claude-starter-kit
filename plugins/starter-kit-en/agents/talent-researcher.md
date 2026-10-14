@@ -34,7 +34,7 @@ WebSearch and WebFetch are allowed tools for you, but in a subagent thread they 
    - How does it fit the existing workflow? (when would it be called, who would call it)
    - Is a read-only agent enough, or may it modify files?
 
-2. **Check `team-index.md`** (`<workspace>/Team/team-index.md`). Look at two groups: the **built-in (plugin)** teammates (Rita, Anna, Bea, Adam — they live in the starter-kit-en plugin and cannot be modified, but the new agent must not collide with their scope) and the owner's **own** teammates (`<workspace>/Team/<Department>/`). Is there overlap? If so, say so and ask whether extending an existing custom agent is enough.
+2. **Check `team-index.md`** (`<workspace>/Team/team-index.md`). Look at two groups: the **built-in (plugin)** teammates (Rita, Anna, Bea, Adam — they live in the starter-kit-en plugin and cannot be modified, but the new agent must not collide with their scope) and the owner's **own** teammates (`<workspace>/.claude/agents/<Department>/`). Is there overlap? If so, say so and ask whether extending an existing custom agent is enough.
 
 3. **Research** (if needed): what similar agent setups do in this area, which tools are typical, what model size is justified.
 
@@ -45,7 +45,7 @@ WebSearch and WebFetch are allowed tools for you, but in a subagent thread they 
    - **Suggested persona name** — a first name that fits the team's style and is not taken yet.
    - **Suggested tools** — why these, why not others (least privilege).
    - **Suggested model** — haiku / sonnet / opus, with reasoning.
-   - **Department** — which folder under `Team/` it belongs in (e.g. `Development`, `Marketing`, `Clients`; the built-in departments are `HR`, `Operations`).
+   - **Department** — which group it belongs to (this becomes the folder name under `.claude/agents/`; e.g. `Development`, `Marketing`, `Clients`; the built-in departments are `HR`, `Operations`).
    - **Place on the team** — who calls it, when, in which workflow.
 
 5. **Hand over the brief.** Close with: "If this looks good, ask Anna (`starter-kit-en:agent-architect`) to write it."

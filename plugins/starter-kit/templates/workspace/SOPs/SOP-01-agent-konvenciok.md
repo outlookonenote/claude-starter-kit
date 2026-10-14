@@ -34,16 +34,10 @@ A `description` a legfontosabb mező: ez alapján dönti el a fő-agent, mikor h
 Két fajta agent van, és mindkettőnek egy kanonikus helye:
 
 - **Beépített (plugin) kollégák** — Rita (`talent-researcher`), Anna (`agent-architect`), Bea (`scribe`), Ádám (`status`). A starter-kit pluginban élnek, névtérrel hívhatók (`starter-kit:<név>`), és a plugin frissítésével frissülnek. Nem szerkesztjük őket, és saját fájlt sem teszünk a plugin mappájába (frissítéskor felülíródik).
-- **Saját kollégák** — a munkaterületen élnek, és egy symlink teszi láthatóvá őket a Claude Code számára:
-  - **Kanonikus fájl:** `<munkaterület>/Csapat/<Department>/<név>.md`
-  - **Symlink (flat):** `~/.claude/agents/<név>.md` → a kanonikus fájl
+- **Saját kollégák** — a munkaterület `.claude/agents/` mappájában élnek:
+  - **Agent-fájl:** `<munkaterület>/.claude/agents/<Department>/<név>.md`
 
-```bash
-ln -sf "<munkaterület>/Csapat/<Department>/<név>.md" \
-       "$HOME/.claude/agents/<név>.md"
-```
-
-A `<munkaterület>` helyére mindig az abszolút út kerül (a session eleji kontextus adja meg: `Munkaterület: <út>`). Departmentek: amit a munka igényel (pl. `Fejlesztés`, `Marketing`, `Ügyfél`). Saját agent technikai neve ne egyezzen a beépítettekével. Projekt-specifikus mappába (`<projekt>/.claude/agents/`) **nem** teszünk agentet — minden egy helyen legyen, hogy a struktúra mobilis maradjon (bármely session-ből elérhető).
+A Claude Code ezt a mappát (az almappákkal együtt) akkor tölti be, ha a `claude`-ot a munkaterületből indítják. Symlinket nem használunk, és a `~/.claude/agents/` alá sem írunk. A `<munkaterület>` helyére mindig az abszolút út kerül (a session eleji kontextus adja meg: `Munkaterület: <út>`). Departmentek: amit a munka igényel (pl. `Fejlesztés`, `Marketing`, `Ügyfél`). Saját agent technikai neve ne egyezzen a beépítettekével, és a departmentek között se ismétlődjön. Más projektek mappájába (`<projekt>/.claude/agents/`) **nem** teszünk agentet: a saját csapat egy helyen, a munkaterületen él.
 
 ### Modell-választás
 
@@ -57,13 +51,13 @@ Minden agent csak a feladatához **ténylegesen** szükséges eszközöket kapja
 
 ## Miért
 
-Az egységes struktúra teszi lehetővé, hogy a fő-agent biztonságosan tudja, melyik agent mikor hívandó, mit csinál és mit nem. A kanonikus fájl + symlink rendszer biztosítja, hogy a Claude Code minden session-ben a friss definíciót lássa, és hogy a saját csapat egy mappa átmásolásával másik gépre költöztethető legyen (a beépítetteket a plugin hozza).
+Az egységes struktúra teszi lehetővé, hogy a fő-agent biztonságosan tudja, melyik agent mikor hívandó, mit csinál és mit nem. Mivel a saját kollégák a munkaterületen belül élnek, a Claude Code minden munkaterületi sessionben a friss definíciót látja, symlink vagy másolat nélkül (Windowson is), és a saját csapat a munkaterület mappájával együtt másik gépre költöztethető (a beépítetteket a plugin hozza).
 
 ## Hogyan alkalmazd
 
 - **Új agent (Anna):** kövesd a szekciórendet, ne hagyd ki a Tilalmakat. A `description`-ben legyen egyértelmű a mikor.
-- **Finomítás (saját agent):** szerkeszd a kanonikus fájlt a department-mappában — a symlink miatt a következő session-indítástól érvényes.
-- **Eltávolítás (saját agent):** töröld az `.md`-t **és** a symlinket `~/.claude/agents/` alól.
+- **Finomítás (saját agent):** szerkeszd a fájlt a `.claude/agents/<Department>/` mappában; a következő session-indítástól érvényes.
+- **Eltávolítás (saját agent):** töröld az `.md`-t a `.claude/agents/<Department>/` mappából.
 - **Index frissítése:** minden felvétel/törlés után frissítsd a `Csapat/README.md` és `Csapat/team-index.md` táblázatát.
 
 ## Tilalmak

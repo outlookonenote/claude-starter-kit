@@ -1,0 +1,10 @@
+# Every text file is stored and checked out with LF; git still detects binary
+# files on its own. This matters most for shell scripts: they run in bash,
+# also in Git Bash on Windows, where Git's default core.autocrlf=true would
+# otherwise check them out with CRLF and break them ("$'\r': command not
+# found"). Claude Code clones the marketplace with git.
+#
+# PowerShell 5.1 and 7 both read LF scripts fine. Line ending conversion
+# leaves the bytes otherwise untouched, so the UTF-8 BOM of
+# windows/installer.ps1 is kept, and install-windows.ps1 stays BOM-less ASCII.
+* text=auto eol=lf

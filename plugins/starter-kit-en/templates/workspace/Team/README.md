@@ -1,6 +1,6 @@
 # Team — the agents' office
 
-*The main agent (Max) is the orchestrator: it coordinates and delegates, it does not do the work itself. Teammates come from two places: the **built-in** ones live in the starter-kit-en plugin (they update when the plugin updates), and **your own teammates** live in this folder, in subfolders by department. Your own teammates are made visible to Claude Code by symlinks under `~/.claude/agents/` (flat).*
+*The main agent (Max) is the orchestrator: it coordinates and delegates, it does not do the work itself. Teammates come from two places: the **built-in** ones live in the starter-kit-en plugin (they update when the plugin updates), and **your own teammates** live in the workspace's `.claude/agents/` folder, in subfolders by department. This folder (`Team/`) is the roster: who is who, and whom to call when.*
 
 Short index and hiring process: [team-index.md](team-index.md).
 
@@ -32,24 +32,19 @@ These are part of the starter-kit-en plugin, called with a namespace (`starter-k
 
 ## Maintenance
 
-- **Hiring a new agent:** tell **Rita** the need in one sentence (or `/starter-kit-en:new-agent <need>`). Rita clarifies, researches and writes a brief (with a department suggestion). Based on the approved brief, **Anna** writes a new `.md` into the right department folder here under `Team/`, symlinks it under `~/.claude/agents/`, and updates this README and `team-index.md`.
-- **Refining your own agent:** edit the `.md` in the department folder. Thanks to the symlink, Claude Code picks up the change at the next session start.
-- **Removing your own agent:** delete the `.md` from the department folder **and** the symlink under `~/.claude/agents/`.
-- **Moving to another department:** `mv` the file into the target folder, then `ln -sf` the symlink to the new path.
+- **Hiring a new agent:** tell **Rita** the need in one sentence (or `/starter-kit-en:new-agent <need>`). Rita clarifies, researches and writes a brief (with a department suggestion). Based on the approved brief, **Anna** writes a new `.md` into the `.claude/agents/<Department>/` folder, and updates this README and `team-index.md`.
+- **Refining your own agent:** edit the `.md` in the `.claude/agents/<Department>/` folder. Claude Code picks up the change at the next session start.
+- **Removing your own agent:** delete the `.md` from the `.claude/agents/<Department>/` folder, and remove its line from this README and `team-index.md`.
+- **Moving to another department:** move the file into another subfolder under `.claude/agents/`.
 - **Built-in agent:** cannot be edited here. If you want it to behave differently, hire your own teammate with the desired behaviour under a different technical name.
 
 ## Layout principle
 
-**All your own agents live in one place — we do NOT put them in project-specific folders** (portable folder structure: reachable from any session).
+**All your own agents live in one place, inside the workspace:**
 
-- **Canonical file:** `<workspace>/Team/<Department>/<name>.md`
-- **Symlink (flat):** `~/.claude/agents/<name>.md` → the canonical file
+- **Agent file:** `<workspace>/.claude/agents/<Department>/<name>.md`
 
-New symlink by hand:
-```bash
-ln -sf "<workspace>/Team/<Department>/<name>.md" \
-       "$HOME/.claude/agents/<name>.md"
-```
+Claude Code loads the workspace's `.claude/agents/` folder (subfolders included) when you start `claude` from the workspace or one of its subfolders. There is no symlink and no copy, so it works the same on every system (macOS, Windows, Linux), and it moves together with the workspace folder. The `.claude` folder may be hidden: in the macOS Finder, Cmd+Shift+. shows it.
 
 ## System prompt conventions
 

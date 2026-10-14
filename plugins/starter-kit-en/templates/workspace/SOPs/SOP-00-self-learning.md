@@ -28,7 +28,7 @@ If yes, decide **where** it goes:
 | A general working rule that applies to several tasks | **A new SOP** in `SOPs/` (`SOP-NN-short-name.md`) |
 | Who the owner is, what they do, a lasting preference | Update **`About Me/about-me.md`** |
 | The status or to-dos of a specific project/client | The project's note in `Notes/` or in `Tasks/` |
-| Refining the behaviour of one of your own agents | That agent's `.md` under `Team/<Department>/` (for a built-in teammate, which lives in the plugin: a new SOP or `CLAUDE.md`, because the plugin's files are overwritten on update) |
+| Refining the behaviour of one of your own agents | That agent's `.md` under `.claude/agents/<Department>/` (for a built-in teammate, which lives in the plugin: a new SOP or `CLAUDE.md`, because the plugin's files are overwritten on update) |
 
 ### Creating a new SOP
 
